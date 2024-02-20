@@ -2,6 +2,9 @@
 
 ### An app that create barcode tags to help markets on their daily demands
 
+<br/>
+<br/>
+
 ## Request to create a new tag
 
 #### Request endpoint:
@@ -16,6 +19,8 @@
 }
 ```
 
+<br/>
+
 #### Response success:
 
 > Status 200
@@ -29,6 +34,8 @@
     }
 }
 ```
+
+<br/>
 
 #### Response error:
 
@@ -45,6 +52,8 @@
 }
 ```
 
+<br/>
+
 #### Request Example:
 
 ```properties
@@ -55,7 +64,8 @@ curl --location 'http://localhost:3000/create_tag' \
 }'
 ```
 
-Above we have an example of request that can make to a server in localhost using port <code>3000</code> and the string <code>"123-456-789-114"</code> as the tag value.
+Above we have an example of request that can make to a server in <code>localhost</code> using port <code>3000</code> and the string <code>"123-456-789-114"</code> as the tag value.
+<br/>
 
 #### Response Example:
 
@@ -71,4 +81,35 @@ Above we have an example of request that can make to a server in localhost using
 }
 ```
 
-Above we have an example of response that the service can return, according to the previous request made.
+This is an example of response that the service can return, according to the previous request made.
+<br/>
+
+#### Wrong Request Example:
+
+```properties
+curl --location 'http://localhost:3000/create_tag' \
+--header 'Content-Type: application/json' \
+--data '{
+    "product": "123-456-789-114"
+}'
+```
+
+Above we have an example of wrong request made to a server in <code>localhost</code> using port <code>3000</code> but the body has <code>"product"</code> instead of <code>"product_code"</code> as property. It will result in an error response.
+<br/>
+
+#### Error Response Example:
+
+> Status 422 UNPROCESSABLE ENTITY
+
+```json
+{
+  "errors": [
+    {
+      "detail": "{'product': ['unknown field'], 'product_code': ['required field']}",
+      "title": "Server Error"
+    }
+  ]
+}
+```
+
+This is the response error resulted of the previous request, made with a wrong property replacing the right one <code>"product_code"</code>.
